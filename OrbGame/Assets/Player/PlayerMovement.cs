@@ -8,9 +8,6 @@ public class PlayerMovement : MonoBehaviour
     public GameObject camera;
     public GameObject player;
 
-    private bool canMove = false;
-    private Animator anim;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Plane playerPlane = new Plane(Vector3.up, player.transform.position);
+        /*Plane playerPlane = new Plane(Vector3.up, player.transform.position);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         float hitDist = 0.0f;
 
@@ -30,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
             targetRotation.x = 0;
             targetRotation.z = 0;
             player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, 15f * Time.deltaTime);
-        }
+        }*/
 
         Move();
     }
@@ -45,16 +42,5 @@ public class PlayerMovement : MonoBehaviour
 
         transform.Translate(movement * Time.deltaTime);
         //transform.Rotate(rotation);
-
-        if (h == 0 && v == 0) {
-            canMove = false;
-        }
-        else {
-            canMove = true;
-        }
-
-        anim.SetBool("isWalking", canMove);
-        anim.SetFloat("VelocityX", h);
-        anim.SetFloat("VelocityZ", v);
     }
 }
