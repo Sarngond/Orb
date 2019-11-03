@@ -7,10 +7,19 @@ public class PlayerAnimate : MonoBehaviour
     private bool canMove = false;
     private Animator anim;
 
+    private Transform cam;
+    private Vector3 camForward;
+    private Vector3 move;
+    private Vector3 moveInput;
+
+    private float fowardAmount;
+    private float turnAmount;
+
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+        cam = Camera.main.transform;
     }
 
     // Update is called once per frame
@@ -35,6 +44,20 @@ public class PlayerAnimate : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
+        if (cam != null) {
+            camForward = Vector3.Scale(cam.up, new Vector3(1, 0, 1)).normalized;
+            move = v * camForward + h * cam.right;
+        }
+        else {
+            move = v * Vector3.forward + h * Vector3.right;
+        }
+
+        if (move.magnitude > 1) {
+            move.Normalize();
+        }
+
+        Move(move);
+
         if (h == 0 && v == 0) {
             canMove = false;
         }
@@ -43,7 +66,29 @@ public class PlayerAnimate : MonoBehaviour
         }
 
         anim.SetBool("isWalking", canMove);
-        anim.SetFloat("VelocityX", h);
-        anim.SetFloat("VelocityZ", v);
+    }
+
+    void Move(Vector3 move) {
+        if (move.magnitude > 1) {
+            move.Normalize();
+        }
+
+        this.moveInput = move;
+
+        ConvertMoveInput();
+        UpdateAnimator();
+    }
+
+    void ConvertMoveInput() {
+        Vector3 localMove = transform.InverseTransformDirection(moveInput);
+        turnAmount = localMove.x;
+
+        fowardAmount = localMove.z;
+    }
+
+    void UpdateAnimator() {
+        anim.SetFloat("VelocityZ", fowardAmount, 0.1f, Time.deltaTime);
+        anim.SetFloat("VelocityX", turnAmount, 0.1f, Time.deltaTime);
+
     }
 }
