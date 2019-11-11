@@ -541,7 +541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1325749601}
   smooth: 0.075
-  height: 10
+  height: 14
 --- !u!1 &974667448 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: ada6940f61ed4e9499e4b3ed9f93c64d,
