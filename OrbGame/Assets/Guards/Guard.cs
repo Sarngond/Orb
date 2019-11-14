@@ -14,23 +14,16 @@ public class Guard : MonoBehaviour
     public GameObject player;
 
     private NavMeshAgent navAgent;
+    private bool atTargetWaypoint = false;
 
     void Start() {
         navAgent = GetComponent<NavMeshAgent>();
 
-        Vector3[] waypoints = new Vector3[pathHolder.childCount];
-        for (int i=0; i<waypoints.Length; i++) {
-            waypoints[i] = pathHolder.GetChild(i).position;
-            waypoints[i] = new Vector3(waypoints[i].x, transform.position.y, waypoints[i].z);
-        }
-
-        StartCoroutine(FollowPath(waypoints));
-        
-
+        SetWaypoints();
     }
 
     void Update() {
-        FollowPlayer();
+        //FollowPlayer();
     }
 
     IEnumerator FollowPath(Vector3[] waypoints) {
@@ -39,18 +32,25 @@ public class Guard : MonoBehaviour
         int targetWaypointIndex = 1;
         Vector3 targetWaypoint = waypoints[targetWaypointIndex];
         transform.LookAt(targetWaypoint);
-        navAgent.SetDestination(targetWaypoint);
+        //navAgent.SetDestination(targetWaypoint);
 
         while (true) {
             if (onPatrol) {
+                StartCoroutine(TurnToFace(targetWaypoint));
+                //navAgent.SetDestination(targetWaypoint);
                 transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, speed * Time.deltaTime);
+                Debug.Log("ah");
                 if (transform.position == targetWaypoint) {
+                    Debug.Log("at target");
                     targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
                     targetWaypoint = waypoints[targetWaypointIndex];
-                    navAgent.SetDestination(targetWaypoint);
                     yield return new WaitForSeconds(waitTime);
                     yield return StartCoroutine(TurnToFace(targetWaypoint));
+                    //navAgent.SetDestination(targetWaypoint);
                 }
+            } else if(!onPatrol) {
+                navAgent.enabled = true;
+                navAgent.SetDestination(player.transform.position);
             }
             yield return null;
         }
@@ -79,10 +79,23 @@ public class Guard : MonoBehaviour
         Gizmos.DrawLine(previousPosition, startPosition);
     }
 
-    private void FollowPlayer() {
+    private void SetWaypoints() {
+
+        Vector3[] waypoints = new Vector3[pathHolder.childCount];
+        for (int i = 0; i < waypoints.Length; i++) {
+            waypoints[i] = pathHolder.GetChild(i).position;
+            waypoints[i] = new Vector3(waypoints[i].x, transform.position.y, waypoints[i].z);
+        }
+
+        StartCoroutine(FollowPath(waypoints));
+    }
+
+    /*private void FollowPlayer() {
+
         if (!onPatrol) {
+            navAgent.enabled = true;
             navAgent.SetDestination(player.transform.position);
         }
-    }
+    }*/
 
 }
