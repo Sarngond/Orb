@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Guard : MonoBehaviour
 {
@@ -10,8 +11,13 @@ public class Guard : MonoBehaviour
     public bool onPatrol = true;
 
     public Transform pathHolder;
+    public GameObject player;
+
+    private NavMeshAgent navAgent;
 
     void Start() {
+        navAgent = GetComponent<NavMeshAgent>();
+
         Vector3[] waypoints = new Vector3[pathHolder.childCount];
         for (int i=0; i<waypoints.Length; i++) {
             waypoints[i] = pathHolder.GetChild(i).position;
@@ -19,7 +25,12 @@ public class Guard : MonoBehaviour
         }
 
         StartCoroutine(FollowPath(waypoints));
+        
 
+    }
+
+    void Update() {
+        FollowPlayer();
     }
 
     IEnumerator FollowPath(Vector3[] waypoints) {
@@ -28,14 +39,18 @@ public class Guard : MonoBehaviour
         int targetWaypointIndex = 1;
         Vector3 targetWaypoint = waypoints[targetWaypointIndex];
         transform.LookAt(targetWaypoint);
+        navAgent.SetDestination(targetWaypoint);
 
         while (true) {
-            transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, speed * Time.deltaTime);
-            if (transform.position == targetWaypoint) {
-                targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
-                targetWaypoint = waypoints[targetWaypointIndex];
-                yield return new WaitForSeconds(waitTime);
-                yield return StartCoroutine(TurnToFace(targetWaypoint));
+            if (onPatrol) {
+                transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, speed * Time.deltaTime);
+                if (transform.position == targetWaypoint) {
+                    targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
+                    targetWaypoint = waypoints[targetWaypointIndex];
+                    navAgent.SetDestination(targetWaypoint);
+                    yield return new WaitForSeconds(waitTime);
+                    yield return StartCoroutine(TurnToFace(targetWaypoint));
+                }
             }
             yield return null;
         }
@@ -45,7 +60,7 @@ public class Guard : MonoBehaviour
         Vector3 dirToLookTarget = (lookTarget - transform.position).normalized;
         float targetAngle = 90 - Mathf.Atan2(dirToLookTarget.z, dirToLookTarget.x) * Mathf.Rad2Deg;
 
-        while (Mathf.DeltaAngle(transform.eulerAngles.y, targetAngle) > 0.05f) {
+        while (Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.y, targetAngle)) > 0.05f) {
             float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.y, targetAngle, turnSpeed * Time.deltaTime);
             transform.eulerAngles = Vector3.up * angle;
             yield return null;
@@ -63,4 +78,11 @@ public class Guard : MonoBehaviour
         }
         Gizmos.DrawLine(previousPosition, startPosition);
     }
+
+    private void FollowPlayer() {
+        if (!onPatrol) {
+            navAgent.SetDestination(player.transform.position);
+        }
+    }
+
 }
