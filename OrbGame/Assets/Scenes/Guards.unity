@@ -198,12 +198,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f356964db3da4fb459c563ee9ca43f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 4
+  patrolSpeed: 3
   waitTime: 1
   turnSpeed: 200
   onPatrol: 1
+  followStopDistance: 5
   pathHolder: {fileID: 1172228831}
   player: {fileID: 1134077502}
+  points:
+  - {fileID: 1906478969}
+  - {fileID: 520130751}
+  - {fileID: 1400557509}
+  - {fileID: 1413738654}
 --- !u!136 &41624358
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1311,7 +1318,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1134077504
 MonoBehaviour:
