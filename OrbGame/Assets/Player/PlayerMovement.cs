@@ -33,14 +33,14 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Move() {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(h, 0, v) * moveSpeed;
+        float h = Input.GetAxis("Horizontal") * moveSpeed;
+        float v = Input.GetAxis("Vertical") * moveSpeed;
+        Vector3 movement = new Vector3(h, 0, v);
 
         //float mouseX = Input.mousePosition.;
         //Vector3 rotation = new Vector3(0, mouseX, 0);
 
-        transform.Translate(movement * Time.deltaTime);
+        transform.Translate(Vector3.ClampMagnitude(movement, moveSpeed) * Time.deltaTime);
         //transform.Rotate(rotation);
     }
 }

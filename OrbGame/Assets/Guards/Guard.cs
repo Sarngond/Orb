@@ -7,26 +7,35 @@ public class Guard : MonoBehaviour
 {
     public float speed = 5;
     public float patrolSpeed = 3;
-    public float waitTime = 0.3f;
+    //public float waitTime = 0.3f;
     public float turnSpeed = 90;
     public bool onPatrol = true;
-
     public float followStopDistance = 5;
+    private bool backToPoint = false;
+
+    public Light spotlight;
+    private Color originalLightColor;
+    public float viewDistance;
+    private float viewAngle;
+    public LayerMask viewMask;
+
+    public float returnTimer = 5;
+    private float firstReturnTimer;
 
     public Transform pathHolder;
-    public GameObject player;
+    private GameObject player;
 
     public Transform[] points;
     private int destPoint = 0;
     private NavMeshAgent navAgent;
 
-    private bool atTargetWaypoint = false;
-
     void Start() {
+        originalLightColor = spotlight.color;
+        spotlight.color = Color.yellow;
+        player = GameObject.FindGameObjectWithTag("Player");
         navAgent = GetComponent<NavMeshAgent>();
-        // Disabling auto-braking allows for continuous movement
-        // between points (ie, the agent doesn't slow down as it
-        // approaches a destination point).
+        viewAngle = spotlight.spotAngle;
+        firstReturnTimer = returnTimer;
 
         GotoNextPoint();
 
@@ -34,11 +43,33 @@ public class Guard : MonoBehaviour
     }
 
     void Update() {
-        FollowPlayer();
+        if (!onPatrol) {
+            backToPoint = true;
+            FollowPlayer();
+        }
         // Choose the next destination point when the agent gets
         // close to the current one.
-        if (!navAgent.pathPending && navAgent.remainingDistance < 0.5f && onPatrol)
-            GotoNextPoint();
+        if (onPatrol) {
+            if (backToPoint) {
+                GotoNextPoint();
+                backToPoint = false;
+            }
+
+            if (!navAgent.pathPending && navAgent.remainingDistance < 0.5f)
+                GotoNextPoint();
+        }
+
+        if (CanSeePlayer()) {
+            onPatrol = false;
+            spotlight.color = originalLightColor;
+            returnTimer = 5;
+        } else if (!CanSeePlayer() && !onPatrol) {
+            returnTimer -= Time.deltaTime;
+            if(returnTimer <= 0) {
+                onPatrol = true;
+                spotlight.color = Color.yellow;
+            }
+        }
     }
 
     void GotoNextPoint() {
@@ -118,6 +149,9 @@ public class Guard : MonoBehaviour
             previousPosition = waypoint.position;
         }
         Gizmos.DrawLine(previousPosition, startPosition);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, transform.forward * viewDistance);
     }
 
     /*private void SetWaypoints() {
@@ -133,12 +167,27 @@ public class Guard : MonoBehaviour
 
     private void FollowPlayer() {
 
-        if (!onPatrol) {
-            //navAgent.enabled = true;
-            navAgent.SetDestination(player.transform.position);
-            navAgent.speed = speed;
-            navAgent.stoppingDistance = followStopDistance;
+        navAgent.SetDestination(player.transform.position);
+        if (CanSeePlayer()) {
+            Quaternion targetRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+            // Smoothly rotate towards the target point.
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
         }
+        navAgent.speed = speed;
+        navAgent.stoppingDistance = followStopDistance;
+    }
+
+    bool CanSeePlayer() {
+        if(Vector3.Distance(transform.position, player.transform.position) < viewDistance) {
+            Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
+            float angleBetweenGuardAndPlayer = Vector3.Angle(transform.forward, dirToPlayer);
+            if (angleBetweenGuardAndPlayer < viewAngle / 2f) {
+                if(!Physics.Linecast(transform.position, player.transform.position, viewMask)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }
