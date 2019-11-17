@@ -9,7 +9,6 @@ public class GuardAttack : MonoBehaviour
 
     //public Camera fpsCam;
     public GameObject hitParticles;
-    public GameObject bulletPrefab;
     public GameObject gunEnd;
     public LineRenderer line;
     public Light light;
@@ -44,6 +43,7 @@ public class GuardAttack : MonoBehaviour
             else if (timeInBetweenFire <= 0) {
                 Shoot();
                 anim.SetTrigger("Shoot");
+
             }
         }
         else {

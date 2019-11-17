@@ -10,12 +10,15 @@ public class GuardUnconscious : MonoBehaviour
 
     private Animator anim;
     private Guard guardScript;
+    private GuardAttack guardAttackScript;
     private NavMeshAgent agent;
+    public Light spotlight;
 
     void Start()
     {
         anim = GetComponent<Animator>();
         guardScript = GetComponent<Guard>();
+        guardAttackScript = GetComponent<GuardAttack>();
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -32,8 +35,9 @@ public class GuardUnconscious : MonoBehaviour
     }
 
     void KnockOut() {
-        guardScript.gameObject.GetComponentInChildren<Light>().enabled = false;
+        spotlight.enabled = false;
         anim.SetBool("Unconscious", true);
+        guardAttackScript.enabled = false;
         guardScript.enabled = false;
         agent.enabled = false;
         unconscious = false;
@@ -42,9 +46,10 @@ public class GuardUnconscious : MonoBehaviour
 
     void WakeUp() {
         guardScript.onPatrol = true;
-        guardScript.gameObject.GetComponentInChildren<Light>().enabled = true;
+        spotlight.enabled = true;
         guardScript.gameObject.GetComponentInChildren<Light>().color = Color.yellow;
         anim.SetBool("Unconscious", false);
+        guardAttackScript.enabled = true;
         guardScript.enabled = true;
         agent.enabled = true;
     }

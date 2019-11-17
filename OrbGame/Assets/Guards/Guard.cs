@@ -184,8 +184,9 @@ public class Guard : MonoBehaviour
 
     public bool canAttack() {
         float distToPlayer = Vector3.Distance(player.transform.position, transform.position);
-        if (!onPatrol && distToPlayer <= followStopDistance + 10f) {
-            if(distToPlayer <= followStopDistance) {
+        turnSpeed = 20;
+        if (!onPatrol && distToPlayer <= followStopDistance +20f) {
+            if(distToPlayer <= followStopDistance + 20f && CanSeePlayer()) {
                 return true;
             }
         }
