@@ -174,7 +174,22 @@ public class Guard : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
         }
         navAgent.speed = speed;
-        navAgent.stoppingDistance = followStopDistance;
+        if (!CanSeePlayer()) {
+            navAgent.stoppingDistance = 2f;
+        }
+        else if(CanSeePlayer()){
+            navAgent.stoppingDistance = followStopDistance;
+        }
+    }
+
+    public bool canAttack() {
+        float distToPlayer = Vector3.Distance(player.transform.position, transform.position);
+        if (!onPatrol && distToPlayer <= followStopDistance + 10f) {
+            if(distToPlayer <= followStopDistance) {
+                return true;
+            }
+        }
+        return false;
     }
 
     bool CanSeePlayer() {
