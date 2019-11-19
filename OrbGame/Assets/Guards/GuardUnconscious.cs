@@ -24,14 +24,23 @@ public class GuardUnconscious : MonoBehaviour
 
     void Update()
     {
+        isUnconscious();
         if (unconscious) {
             KnockOut();
         }
     }
 
+    public bool isUnconscious() {
+        if (unconscious) {
+            return true;
+        }
+        return false;
+    }
+
     IEnumerator DelayGetUp() {
         yield return new WaitForSeconds(unconsciousAnim.length);
         WakeUp();
+        StopAllCoroutines();
     }
 
     void KnockOut() {
@@ -40,17 +49,18 @@ public class GuardUnconscious : MonoBehaviour
         guardAttackScript.enabled = false;
         guardScript.enabled = false;
         agent.enabled = false;
-        unconscious = false;
         StartCoroutine(DelayGetUp());
     }
 
     void WakeUp() {
         guardScript.onPatrol = true;
         spotlight.enabled = true;
+        spotlight.color = Color.yellow;
         guardScript.gameObject.GetComponentInChildren<Light>().color = Color.yellow;
         anim.SetBool("Unconscious", false);
         guardAttackScript.enabled = true;
         guardScript.enabled = true;
         agent.enabled = true;
+        unconscious = false;
     }
 }

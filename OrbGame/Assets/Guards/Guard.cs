@@ -70,6 +70,12 @@ public class Guard : MonoBehaviour
                 spotlight.color = Color.yellow;
             }
         }
+
+        if (SpottedUnconscious()) {
+            Debug.Log(SpottedUnconscious());
+        } else if (!SpottedUnconscious()) {
+            Debug.Log(SpottedUnconscious());
+        }
     }
 
     void GotoNextPoint() {
@@ -180,6 +186,33 @@ public class Guard : MonoBehaviour
         else if(CanSeePlayer()){
             navAgent.stoppingDistance = followStopDistance;
         }
+    }
+
+    bool SpottedUnconscious() {
+        //if the thing in view is a guard continue
+        //if the guard is unconscious true
+        GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard");
+        GameObject unconsciousGuard = guards[1];
+        foreach (GameObject guard in guards) {
+            if (GetComponent<GuardUnconscious>().isUnconscious()) {
+                unconsciousGuard = null;
+                unconsciousGuard = guard;
+                Debug.Log(unconsciousGuard.name +" unconscious");
+            }
+        }
+
+        if (Vector3.Distance(transform.position, unconsciousGuard.transform.position) < viewDistance) {
+            Vector3 dirToGuard = (unconsciousGuard.transform.position - transform.position).normalized;
+            float angleBetweenGuardAndGuard = Vector3.Angle(transform.forward, dirToGuard);
+            if (angleBetweenGuardAndGuard < viewAngle / 2f) {
+                if (!Physics.Linecast(transform.position, unconsciousGuard.transform.position, viewMask)) {
+                    if (unconsciousGuard.GetComponent<GuardUnconscious>().isUnconscious()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public bool canAttack() {
