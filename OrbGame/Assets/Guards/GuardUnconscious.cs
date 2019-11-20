@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class GuardUnconscious : MonoBehaviour
 {
     public bool unconscious = false;
+    private bool animPlayed = false;
     public AnimationClip unconsciousAnim;
 
     private Animator anim;
@@ -44,8 +45,12 @@ public class GuardUnconscious : MonoBehaviour
     }
 
     void KnockOut() {
+        tag = "Unconscious Guard";
+        if (!animPlayed) {
+            anim.SetTrigger("Unconscious");
+        }
+        animPlayed = true;
         spotlight.enabled = false;
-        anim.SetBool("Unconscious", true);
         guardAttackScript.enabled = false;
         guardScript.enabled = false;
         agent.enabled = false;
@@ -53,11 +58,12 @@ public class GuardUnconscious : MonoBehaviour
     }
 
     void WakeUp() {
+        tag = "Guard";
+        animPlayed = false;
         guardScript.onPatrol = true;
         spotlight.enabled = true;
         spotlight.color = Color.yellow;
         guardScript.gameObject.GetComponentInChildren<Light>().color = Color.yellow;
-        anim.SetBool("Unconscious", false);
         guardAttackScript.enabled = true;
         guardScript.enabled = true;
         agent.enabled = true;

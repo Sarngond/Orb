@@ -29,7 +29,11 @@ public class Guard : MonoBehaviour
     private int destPoint = 0;
     private NavMeshAgent navAgent;
 
+    public bool spottedUnconscious = false;
+    private GameObject unconsciousGuard = null;
+
     void Start() {
+
         originalLightColor = spotlight.color;
         spotlight.color = Color.yellow;
         player = GameObject.FindGameObjectWithTag("Player");
@@ -43,6 +47,7 @@ public class Guard : MonoBehaviour
     }
 
     void Update() {
+
         if (!onPatrol) {
             backToPoint = true;
             FollowPlayer();
@@ -63,18 +68,30 @@ public class Guard : MonoBehaviour
             onPatrol = false;
             spotlight.color = originalLightColor;
             returnTimer = 5;
-        } else if (!CanSeePlayer() && !onPatrol) {
-            returnTimer -= Time.deltaTime;
-            if(returnTimer <= 0) {
-                onPatrol = true;
-                spotlight.color = Color.yellow;
-            }
         }
+        if (!CanSeePlayer()) {
 
-        if (SpottedUnconscious()) {
-            Debug.Log(SpottedUnconscious());
-        } else if (!SpottedUnconscious()) {
-            Debug.Log(SpottedUnconscious());
+            if (!onPatrol) {
+                returnTimer -= Time.deltaTime;
+                if (returnTimer <= 0) {
+                    onPatrol = true;
+                    spotlight.color = Color.yellow;
+                }
+            }
+
+            if (spottedUnconscious && onPatrol) {
+                //onPatrol = false;
+                navAgent.stoppingDistance = 2f;
+                navAgent.SetDestination(unconsciousGuard.transform.position);
+                Quaternion targetRotation = Quaternion.LookRotation(unconsciousGuard.transform.position - transform.position);
+                //Smoothly rotate towards the target point.
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+                if (!unconsciousGuard.GetComponent<GuardUnconscious>().isUnconscious()) {
+                    navAgent.stoppingDistance = 0f;
+                    spottedUnconscious = false;
+                    onPatrol = true;
+                }
+            }
         }
     }
 
@@ -92,59 +109,6 @@ public class Guard : MonoBehaviour
         destPoint = (destPoint + 1) % points.Length;
     }
 
-    /*IEnumerator FollowPath(Vector3[] waypoints) {
-        transform.position = waypoints[0];
-
-        int targetWaypointIndex = 1;
-        Vector3 targetWaypoint = waypoints[targetWaypointIndex];
-        transform.LookAt(targetWaypoint);
-        //navAgent.SetDestination(targetWaypoint);
-
-        while (true) {
-            if (onPatrol) {
-                navAgent.enabled = false;
-                StartCoroutine(TurnToFace(targetWaypoint));
-                //navAgent.SetDestination(targetWaypoint);
-                transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, speed * Time.deltaTime);
-                //Debug.Log("ah");
-                //Debug.Log(atTargetWaypoint);
-
-                //if (atTargetWaypoint) {
-                //    navAgent.enabled = true;
-                //}
-                //if(!atTargetWaypoint) {
-                //    navAgent.enabled = false;
-                //}
-
-                if (transform.position == targetWaypoint) {
-                    //atTargetWaypoint = true;
-                    //Debug.Log(atTargetWaypoint);
-                    targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
-                    targetWaypoint = waypoints[targetWaypointIndex];
-                    yield return new WaitForSeconds(waitTime);
-                    yield return StartCoroutine(TurnToFace(targetWaypoint));
-                    //navAgent.SetDestination(targetWaypoint);
-                }
-            } else if(!onPatrol) {
-                navAgent.enabled = true;
-                navAgent.SetDestination(player.transform.position);
-                //atTargetWaypoint = false;
-            }
-            yield return null;
-        }
-    }
-
-    IEnumerator TurnToFace(Vector3 lookTarget) {
-        Vector3 dirToLookTarget = (lookTarget - transform.position).normalized;
-        float targetAngle = 90 - Mathf.Atan2(dirToLookTarget.z, dirToLookTarget.x) * Mathf.Rad2Deg;
-
-        while (Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.y, targetAngle)) > 0.05f) {
-            float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.y, targetAngle, turnSpeed * Time.deltaTime);
-            transform.eulerAngles = Vector3.up * angle;
-            yield return null;
-        }
-    }*/
-
     private void OnDrawGizmos() {
         Vector3 startPosition = pathHolder.GetChild(0).position;
         Vector3 previousPosition = startPosition;
@@ -159,17 +123,6 @@ public class Guard : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, transform.forward * viewDistance);
     }
-
-    /*private void SetWaypoints() {
-
-        Vector3[] waypoints = new Vector3[pathHolder.childCount];
-        for (int i = 0; i < waypoints.Length; i++) {
-            waypoints[i] = pathHolder.GetChild(i).position;
-            waypoints[i] = new Vector3(waypoints[i].x, transform.position.y, waypoints[i].z);
-        }
-
-        StartCoroutine(FollowPath(waypoints));
-    }*/
 
     private void FollowPlayer() {
 
@@ -188,31 +141,26 @@ public class Guard : MonoBehaviour
         }
     }
 
-    bool SpottedUnconscious() {
-        //if the thing in view is a guard continue
-        //if the guard is unconscious true
-        GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard");
-        GameObject unconsciousGuard = guards[1];
-        foreach (GameObject guard in guards) {
-            if (GetComponent<GuardUnconscious>().isUnconscious()) {
-                unconsciousGuard = null;
-                unconsciousGuard = guard;
-                Debug.Log(unconsciousGuard.name +" unconscious");
-            }
+    public void SpotUnconscious(GameObject unconscious) {
+        if(unconscious == null || !unconscious.GetComponent<GuardUnconscious>().isUnconscious()) {
+            spottedUnconscious = false;
+            return;
         }
 
-        if (Vector3.Distance(transform.position, unconsciousGuard.transform.position) < viewDistance) {
-            Vector3 dirToGuard = (unconsciousGuard.transform.position - transform.position).normalized;
-            float angleBetweenGuardAndGuard = Vector3.Angle(transform.forward, dirToGuard);
-            if (angleBetweenGuardAndGuard < viewAngle / 2f) {
-                if (!Physics.Linecast(transform.position, unconsciousGuard.transform.position, viewMask)) {
-                    if (unconsciousGuard.GetComponent<GuardUnconscious>().isUnconscious()) {
-                        return true;
+        if (unconscious.GetComponent<GuardUnconscious>().isUnconscious()) {
+
+            turnSpeed = 9;
+            if (Vector3.Distance(transform.position, unconscious.transform.position) < viewDistance) {
+                Vector3 dirToUnconscious = (unconscious.transform.position - transform.position).normalized;
+                float angleBetweenGuardAndUnconscious = Vector3.Angle(transform.forward, dirToUnconscious);
+                if (angleBetweenGuardAndUnconscious < viewAngle / 2f) {
+                    if (!Physics.Linecast(transform.position, unconscious.transform.position, viewMask)) {
+                        unconsciousGuard = unconscious;
+                        spottedUnconscious = true;
                     }
                 }
             }
         }
-        return false;
     }
 
     public bool canAttack() {
