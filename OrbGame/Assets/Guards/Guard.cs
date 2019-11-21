@@ -163,7 +163,7 @@ public class Guard : MonoBehaviour
         }
     }
 
-    public bool canAttack() {
+    public bool CanAttack() {
         float distToPlayer = Vector3.Distance(player.transform.position, transform.position);
         turnSpeed = 20;
         if (!onPatrol && distToPlayer <= followStopDistance +20f) {
@@ -174,7 +174,15 @@ public class Guard : MonoBehaviour
         return false;
     }
 
-    bool CanSeePlayer() {
+    public void CallToAttack() {
+        if (CanAttack() || !onPatrol) {
+            return;
+        }
+        Debug.Log(name + " attacking");
+        FollowPlayer();
+    }
+
+    public bool CanSeePlayer() {
         if(Vector3.Distance(transform.position, player.transform.position) < viewDistance) {
             Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
             float angleBetweenGuardAndPlayer = Vector3.Angle(transform.forward, dirToPlayer);

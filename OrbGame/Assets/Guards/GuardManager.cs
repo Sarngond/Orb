@@ -17,6 +17,7 @@ public class GuardManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        SeePlayer();
         FindUnconsciousGuards();
     }
 
@@ -36,8 +37,13 @@ public class GuardManager : MonoBehaviour {
         }
     }
 
-    //function name
-    //foreach guard in guards[]
-    //if the guard is unconscious then tell the other Guards that can see them
-    //
+    void SeePlayer() {
+        foreach (GameObject guard in guards) {
+            if (guard.GetComponent<Guard>().CanSeePlayer()) {
+                foreach (GameObject guard2 in guards) {
+                    guard2.GetComponent<Guard>().CallToAttack();
+                }
+            }
+        }
+    }
 }

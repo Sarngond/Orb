@@ -34,7 +34,7 @@ public class GuardAttack : MonoBehaviour
     // Update is called once per frame
     void Update() {
 
-        if (guardScript.canAttack()) {
+        if (guardScript.CanAttack()) {
             timeInBetweenFire -= Time.deltaTime;
             if (timeInBetweenFire > 0) {
                 line.enabled = false;
