@@ -32,6 +32,9 @@ public class Guard : MonoBehaviour
     public bool spottedUnconscious = false;
     private GameObject unconsciousGuard = null;
 
+    public bool canHearPlayer = false;
+    private NavMeshPath path;
+
     void Start() {
 
         originalLightColor = spotlight.color;
@@ -93,6 +96,7 @@ public class Guard : MonoBehaviour
                 }
             }
         }
+
     }
 
     void GotoNextPoint() {
@@ -136,9 +140,10 @@ public class Guard : MonoBehaviour
         if (!CanSeePlayer()) {
             navAgent.stoppingDistance = 2f;
         }
-        else if(CanSeePlayer()){
+        else if (CanSeePlayer()) {
             navAgent.stoppingDistance = followStopDistance;
         }
+
     }
 
     public void SpotUnconscious(GameObject unconscious) {
@@ -178,8 +183,24 @@ public class Guard : MonoBehaviour
         if (CanAttack() || !onPatrol) {
             return;
         }
-        Debug.Log(name + " attacking");
-        FollowPlayer();
+
+        path = new NavMeshPath();
+        navAgent.CalculatePath(player.transform.position, path);
+        if (path.status == NavMeshPathStatus.PathPartial) {
+            Debug.Log("can't get to player");
+            canHearPlayer = false;
+        } else if(path.status != NavMeshPathStatus.PathPartial && path.status != NavMeshPathStatus.PathInvalid) {
+            canHearPlayer = true;
+        }
+
+        if (!canHearPlayer) {
+            Debug.Log("hey stop");
+            navAgent.stoppingDistance = 0;
+        }
+        if (canHearPlayer){
+            Debug.Log(name + " attacking");
+            FollowPlayer();
+        }
     }
 
     public bool CanSeePlayer() {
