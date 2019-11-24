@@ -129,6 +129,7 @@ public class Guard : MonoBehaviour
     }
 
     private void FollowPlayer() {
+        onPatrol = false;
 
         navAgent.SetDestination(player.transform.position);
         if (CanSeePlayer()) {

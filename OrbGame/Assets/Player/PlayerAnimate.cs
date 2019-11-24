@@ -67,13 +67,11 @@ public class PlayerAnimate : MonoBehaviour
 
         anim.SetBool("isWalking", canMove);
 
-        /*if (Input.GetButton("Crouch")) {
+        if (Input.GetButton("Crouch")) {
             anim.SetBool("isCrouching", true);
-            anim.SetBool("isWalking", false);
-        } else if(canMove){
-            anim.SetBool("isWalking", true);
+        } else {
             anim.SetBool("isCrouching", false);
-        }*/
+        }
     }
 
     void Move(Vector3 move) {
