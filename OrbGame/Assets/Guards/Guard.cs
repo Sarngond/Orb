@@ -35,6 +35,9 @@ public class Guard : MonoBehaviour
     public bool canHearPlayer = false;
     private NavMeshPath path;
 
+    private GameObject[] crouchables;
+    private PlayerAnimate playerAnimate;
+
     void Start() {
 
         originalLightColor = spotlight.color;
@@ -44,12 +47,29 @@ public class Guard : MonoBehaviour
         viewAngle = spotlight.spotAngle;
         firstReturnTimer = returnTimer;
 
+        crouchables = GameObject.FindGameObjectsWithTag("Crouchable");
+        playerAnimate = player.GetComponentInChildren<PlayerAnimate>();
+
         GotoNextPoint();
 
         //SetWaypoints();
     }
 
     void Update() {
+
+        if (!playerAnimate.Crouching()) {
+            Debug.Log("can't see him");
+            foreach (GameObject crouchable in crouchables) {
+                crouchable.layer = 10;
+            }
+        }
+        else if (player.GetComponentInChildren<PlayerAnimate>().Crouching()) {
+            foreach (GameObject crouchable in crouchables) {
+                crouchable.layer = 8;
+            }
+        }
+
+
 
         if (!onPatrol) {
             backToPoint = true;
@@ -209,6 +229,7 @@ public class Guard : MonoBehaviour
             Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
             float angleBetweenGuardAndPlayer = Vector3.Angle(transform.forward, dirToPlayer);
             if (angleBetweenGuardAndPlayer < viewAngle / 2f) {
+
                 if(!Physics.Linecast(transform.position, player.transform.position, viewMask)) {
                     return true;
                 }

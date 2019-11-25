@@ -15,6 +15,11 @@ public class PlayerAnimate : MonoBehaviour
     private float fowardAmount;
     private float turnAmount;
 
+    public Collider playerCollider;
+    public Collider crouchCollider;
+
+    private bool isCrouched = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,10 +72,27 @@ public class PlayerAnimate : MonoBehaviour
 
         anim.SetBool("isWalking", canMove);
 
-        if (Input.GetButton("Crouch")) {
-            anim.SetBool("isCrouching", true);
+        if (Input.GetButtonDown("Crouch")) {
+            if (anim.GetBool("isCrouching")) {
+                isCrouched = false;
+                anim.SetBool("isCrouching", false);
+                crouchCollider.enabled = false;
+                playerCollider.enabled = true;
+            }
+            else {
+                isCrouched = true;
+                anim.SetBool("isCrouching", true);
+                crouchCollider.enabled = true;
+                playerCollider.enabled = false;
+            }
+        }
+    }
+
+    public bool Crouching() {
+        if (isCrouched) {
+            return true;
         } else {
-            anim.SetBool("isCrouching", false);
+            return false;
         }
     }
 
@@ -96,4 +118,5 @@ public class PlayerAnimate : MonoBehaviour
         anim.SetFloat("VelocityZ", fowardAmount, 0.1f, Time.deltaTime);
         anim.SetFloat("VelocityX", turnAmount, 0.1f, Time.deltaTime);
     }
+
 }
