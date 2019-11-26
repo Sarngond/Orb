@@ -1,11 +1,20 @@
 fileFormatVersion: 2
-guid: 569124461b3d05a4187bec0926cea96d
+guid: 1dec1f092e4c2454185f77ce1655abd2
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
   - first:
-      74: -3327315293708505719
-    second: Blaster|BlasterAction
+      74: 819569221649910625
+    second: Pistol|BlasterAction
+  - first:
+      74: 7745390579785988044
+    second: Pistol|BlasterAction.001
+  - first:
+      74: -3985846226727031289
+    second: Pistol|CylinderAction
+  - first:
+      74: -4041759247846970267
+    second: Pistol|CylinderAction.001
   externalObjects: {}
   materials:
     importMaterials: 1

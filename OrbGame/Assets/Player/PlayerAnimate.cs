@@ -72,19 +72,17 @@ public class PlayerAnimate : MonoBehaviour
 
         anim.SetBool("isWalking", canMove);
 
-        if (Input.GetButtonDown("Crouch")) {
-            if (anim.GetBool("isCrouching")) {
-                isCrouched = false;
-                anim.SetBool("isCrouching", false);
-                crouchCollider.enabled = false;
-                playerCollider.enabled = true;
-            }
-            else {
-                isCrouched = true;
-                anim.SetBool("isCrouching", true);
-                crouchCollider.enabled = true;
-                playerCollider.enabled = false;
-            }
+        if (Input.GetButton("Crouch")) {
+            isCrouched = true;
+            anim.SetBool("isCrouching", true);
+            crouchCollider.enabled = true;
+            playerCollider.enabled = false;
+        }
+        else {
+            isCrouched = false;
+            anim.SetBool("isCrouching", false);
+            crouchCollider.enabled = false;
+            playerCollider.enabled = true;
         }
     }
 

@@ -11,7 +11,7 @@ public class GuardAttack : MonoBehaviour
     public GameObject hitParticles;
     public GameObject gunEnd;
     public LineRenderer line;
-    public Light light;
+    public Light shootlight;
 
     public float lineMaxLength = 5f;
     public ParticleSystem muzzleFlash;
@@ -38,7 +38,7 @@ public class GuardAttack : MonoBehaviour
             timeInBetweenFire -= Time.deltaTime;
             if (timeInBetweenFire > 0) {
                 line.enabled = false;
-                light.enabled = false;
+                shootlight.enabled = false;
             }
             else if (timeInBetweenFire <= 0) {
                 Shoot();
@@ -48,7 +48,7 @@ public class GuardAttack : MonoBehaviour
         }
         else {
             line.enabled = false;
-            light.enabled = false;
+            shootlight.enabled = false;
         }
 
     }
@@ -68,9 +68,9 @@ public class GuardAttack : MonoBehaviour
             //}
             float dist = Vector3.Distance(hit.point, gunEnd.transform.position);
 
-            light.enabled = true;
+            shootlight.enabled = true;
             line.enabled = true;
-            line.SetPosition(1, new Vector3(0, 0, dist - 0.2f));
+            line.SetPosition(1, new Vector3(0, 0, dist - 4f));
             sparks = Instantiate(hitParticles, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(sparks, 10f * Time.deltaTime);
         } else {

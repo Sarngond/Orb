@@ -58,7 +58,6 @@ public class Guard : MonoBehaviour
     void Update() {
 
         if (!playerAnimate.Crouching()) {
-            Debug.Log("can't see him");
             foreach (GameObject crouchable in crouchables) {
                 crouchable.layer = 10;
             }
@@ -201,25 +200,22 @@ public class Guard : MonoBehaviour
     }
 
     public void CallToAttack() {
-        if (CanAttack() || !onPatrol) {
+        if (CanAttack()) {
             return;
         }
 
         path = new NavMeshPath();
         navAgent.CalculatePath(player.transform.position, path);
         if (path.status == NavMeshPathStatus.PathPartial) {
-            Debug.Log("can't get to player");
             canHearPlayer = false;
         } else if(path.status != NavMeshPathStatus.PathPartial && path.status != NavMeshPathStatus.PathInvalid) {
             canHearPlayer = true;
         }
 
         if (!canHearPlayer) {
-            Debug.Log("hey stop");
             navAgent.stoppingDistance = 0;
         }
         if (canHearPlayer){
-            Debug.Log(name + " attacking");
             FollowPlayer();
         }
     }
@@ -236,6 +232,28 @@ public class Guard : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void GoToPosition(Transform transform) {
+        if (CanAttack()) {
+            return;
+        }
+
+        path = new NavMeshPath();
+        navAgent.CalculatePath(player.transform.position, path);
+        if (path.status == NavMeshPathStatus.PathPartial) {
+            canHearPlayer = false;
+        }
+        else if (path.status != NavMeshPathStatus.PathPartial && path.status != NavMeshPathStatus.PathInvalid) {
+            canHearPlayer = true;
+        }
+
+        if (!canHearPlayer) {
+            navAgent.stoppingDistance = 0;
+        }
+        if (canHearPlayer) {
+            navAgent.SetDestination(transform.position);
+        }
     }
 
 }

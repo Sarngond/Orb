@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: 569124461b3d05a4187bec0926cea96d
+guid: 6f2c62f875a38814b8357f1ae74b11c8
 ModelImporter:
   serializedVersion: 26
-  internalIDToNameTable:
-  - first:
-      74: -3327315293708505719
-    second: Blaster|BlasterAction
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -90,7 +87,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
