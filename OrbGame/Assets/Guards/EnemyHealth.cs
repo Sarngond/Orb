@@ -26,6 +26,7 @@ public class EnemyHealth : MonoBehaviour {
 
     void Die() {
         isDead = true;
+        RemoveGuard();
         //GameObject deadZombie;
         Destroy(transform.parent.gameObject);
         //deadZombie = Instantiate(deadReeses, transform.position + offset, transform.rotation) as GameObject;
@@ -36,5 +37,10 @@ public class EnemyHealth : MonoBehaviour {
             return true;
         }
         return false;
+    }
+
+    public void RemoveGuard() {
+        GuardManager manager = FindObjectOfType<GuardManager>();
+        manager.RemoveGuardFromList(gameObject);
     }
 }

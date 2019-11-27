@@ -25,6 +25,7 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Confined;
         line.enabled = false;
         shootlight.enabled = false;
     }
@@ -74,7 +75,8 @@ public class PlayerAttack : MonoBehaviour
 
         RaycastHit hit;
         if (Physics.Raycast(gunEnd.transform.position, gunEnd.transform.right, out hit, range)) {
-            EnemyHealth enemy = hit.transform.GetComponent<EnemyHealth>();
+            EnemyHealth enemy;
+            enemy = hit.transform.GetComponent<EnemyHealth>();
             if (enemy != null) {
                 enemy.TakeDamage(damage);
             }
@@ -89,8 +91,9 @@ public class PlayerAttack : MonoBehaviour
             fired = true;
         }
         else {
+            shootlight.enabled = true;
             line.enabled = true;
-            line.SetPosition(1, new Vector3(0, 0, 30));
+            line.SetPosition(1, new Vector3(0, 0, 80));
             fired = true;
         }
     }

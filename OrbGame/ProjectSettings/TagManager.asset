@@ -8,6 +8,7 @@ TagManager:
   - Guard
   - Unconscious Guard
   - Crouchable
+  - GuardManager
   layers:
   - Default
   - TransparentFX

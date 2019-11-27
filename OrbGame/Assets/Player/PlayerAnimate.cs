@@ -20,6 +20,8 @@ public class PlayerAnimate : MonoBehaviour
 
     private bool isCrouched = false;
 
+    public GameObject gunEnd;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,16 +32,16 @@ public class PlayerAnimate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Plane playerPlane = new Plane(Vector3.up, transform.position);
+        Plane playerPlane = new Plane(Vector3.up, gunEnd.transform.position);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         float hitDist = 0.0f;
 
         if (playerPlane.Raycast(ray, out hitDist)) {
             Vector3 targetPoint = ray.GetPoint(hitDist);
-            Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+            Quaternion targetRotation = Quaternion.LookRotation(targetPoint - gunEnd.transform.position);
             targetRotation.x = 0;
             targetRotation.z = 0;
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 15f * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 50f * Time.deltaTime);
         }
 
         Animate();

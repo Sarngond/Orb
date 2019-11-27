@@ -25,14 +25,22 @@ public class GuardManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        foreach (GameObject guard in guards) {
-            if (guard.GetComponentInChildren<EnemyHealth>().Dead()) {
-                guardList.Remove(guard);
-            }
-        }
+
         HearPlayer();
         SeePlayer();
         FindUnconsciousGuards();
+    }
+
+    public void RemoveGuardFromList(GameObject guard) {
+        int guardIndex;
+        foreach (GameObject enemy in guardList) {
+            if (enemy.GetComponentInChildren<EnemyHealth>().Dead()) {
+                guardIndex = guardList.IndexOf(enemy);
+                Debug.Log(guardIndex);
+                guardList.RemoveAt(guardIndex);
+                guardList.Remove(guard);
+            }
+        }
     }
 
     void FindUnconsciousGuards() {
@@ -53,9 +61,6 @@ public class GuardManager : MonoBehaviour {
 
     void SeePlayer() {
         foreach (GameObject guard in guardList) {
-            if (guard.GetComponentInChildren<EnemyHealth>().Dead()) {
-                return;
-            }
             if (guard.GetComponent<Guard>().CanSeePlayer()) {
                 playersLastPos = guard.transform;
                 if (!playerPosSet) {
@@ -75,9 +80,6 @@ public class GuardManager : MonoBehaviour {
 
     void HearPlayer() {
         foreach (GameObject guard in guardList) {
-            if (guard.GetComponentInChildren<EnemyHealth>().Dead()) {
-                return;
-            }
             if (player.GetComponentInChildren<PlayerAttack>().Shooting()) {
                 playersLastPos = player.transform;
                 if (!playerPosSet) {
