@@ -21,12 +21,18 @@ public class PlayerAnimate : MonoBehaviour
     private bool isCrouched = false;
 
     public GameObject gunEnd;
+    public bool isMeleeing = false;
+
+    public AnimationClip meleeClip;
+    private float timeTillCanMelee = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         cam = Camera.main.transform;
+
+        timeTillCanMelee = meleeClip.length;
     }
 
     // Update is called once per frame
@@ -45,6 +51,7 @@ public class PlayerAnimate : MonoBehaviour
         }
 
         Animate();
+        Meleeing();
     }
 
     void Animate() {
@@ -86,6 +93,22 @@ public class PlayerAnimate : MonoBehaviour
             crouchCollider.enabled = false;
             playerCollider.enabled = true;
         }
+
+        if (Input.GetButtonDown("Fire2")) {
+            if (!isMeleeing) {
+                SetIsMelee();
+                anim.SetTrigger("Melee");
+                Invoke("SetIsMelee", meleeClip.length);
+            }
+        }
+    }
+
+    public void SetIsMelee() {
+        if (isMeleeing) {
+            isMeleeing = false;
+        } else if (!isMeleeing) {
+            isMeleeing = true;
+        }
     }
 
     public bool Crouching() {
@@ -93,6 +116,15 @@ public class PlayerAnimate : MonoBehaviour
             return true;
         } else {
             return false;
+        }
+    }
+
+    public bool Meleeing() {
+        if (!isMeleeing) {
+            return false;
+        }
+        else {
+            return true;
         }
     }
 

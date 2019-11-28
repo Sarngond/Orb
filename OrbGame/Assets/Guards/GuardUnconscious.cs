@@ -15,12 +15,17 @@ public class GuardUnconscious : MonoBehaviour
     private NavMeshAgent agent;
     public Light spotlight;
 
+    private GameObject player;
+    private GuardManager guardManager;
+
     void Start()
     {
         anim = GetComponent<Animator>();
         guardScript = GetComponent<Guard>();
         guardAttackScript = GetComponent<GuardAttack>();
         agent = GetComponent<NavMeshAgent>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        guardManager = GameObject.FindObjectOfType<GuardManager>();
     }
 
     void Update()
@@ -29,6 +34,7 @@ public class GuardUnconscious : MonoBehaviour
         if (unconscious) {
             KnockOut();
         }
+
     }
 
     public bool isUnconscious() {
@@ -44,7 +50,7 @@ public class GuardUnconscious : MonoBehaviour
         StopAllCoroutines();
     }
 
-    void KnockOut() {
+    public void KnockOut() {
         tag = "Unconscious Guard";
         if (!animPlayed) {
             anim.SetTrigger("Unconscious");
@@ -69,4 +75,14 @@ public class GuardUnconscious : MonoBehaviour
         agent.enabled = true;
         unconscious = false;
     }
+
+    private void OnTriggerStay(Collider collider) {
+        if(collider.gameObject == player) {
+            PlayerAnimate playerAnimate = player.GetComponentInChildren<PlayerAnimate>();
+            if (playerAnimate.Meleeing()) {
+                unconscious = true;
+            }
+        }
+    }
+
 }

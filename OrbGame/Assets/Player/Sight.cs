@@ -8,6 +8,8 @@ public class Sight : MonoBehaviour
     public float range = 100f;
     private LineRenderer line;
 
+    public LayerMask layerMask;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,7 @@ public class Sight : MonoBehaviour
     void Update()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, gunEnd.transform.right, out hit, range)) {
+        if (Physics.Raycast(transform.position, gunEnd.transform.right, out hit, range, layerMask)) {
             //EnemyHealth enemy = hit.transform.GetComponent<EnemyHealth>();
             //if (enemy != null) {
             //    enemy.TakeDamage(damage);

@@ -63,6 +63,7 @@ public class PlayerAttack : MonoBehaviour
                 shootlight.enabled = false;
             }
         }
+
     }
 
     void Shoot() {
@@ -104,4 +105,5 @@ public class PlayerAttack : MonoBehaviour
         }
         return false;
     }
+
 }

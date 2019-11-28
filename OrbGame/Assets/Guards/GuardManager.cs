@@ -6,29 +6,37 @@ public class GuardManager : MonoBehaviour {
 
     public GameObject[] guards;
     public List<GameObject> guardList;
+    public List<GameObject> unconsciousList;
+    //public List<GameObject> deadList;
     private Guard guardScript;
     public GameObject unconsciousGuard = null;
     private GameObject player;
     private Transform playersLastPos;
     private bool playerPosSet = false;
 
+    private bool addedUnconscious = false;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         guards = GameObject.FindGameObjectsWithTag("Guard");
+
         foreach (GameObject guard in guards) {
             guardList.Add(guard);
         }
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        HearPlayer();
-        SeePlayer();
-        FindUnconsciousGuards();
+        if (guardList != null) {
+            HearPlayer();
+            SeePlayer();
+            FindUnconsciousGuards();
+        }
     }
 
     public void RemoveGuardFromList(GameObject guard) {
@@ -36,7 +44,6 @@ public class GuardManager : MonoBehaviour {
         foreach (GameObject enemy in guardList) {
             if (enemy.GetComponentInChildren<EnemyHealth>().Dead()) {
                 guardIndex = guardList.IndexOf(enemy);
-                Debug.Log(guardIndex);
                 guardList.RemoveAt(guardIndex);
                 guardList.Remove(guard);
             }
@@ -48,11 +55,20 @@ public class GuardManager : MonoBehaviour {
         foreach (GameObject guard in guardList) {
             if (guard.tag == "Unconscious Guard") {
                 unconsciousGuard = guard;
+                if (!addedUnconscious) {
+                    unconsciousList.Add(guard);
+                    addedUnconscious = true;
+                }
             }
             if (guard.tag == "Guard") {
                 if (!guard.GetComponentInChildren<GuardUnconscious>().isUnconscious() && unconsciousGuard != null) {
                     if (unconsciousGuard.GetComponent<GuardUnconscious>().isUnconscious()) {
                         guard.GetComponent<Guard>().SpotUnconscious(unconsciousGuard);
+                    }
+                    if (!unconsciousGuard.GetComponent<GuardUnconscious>().isUnconscious()) {
+                        unconsciousList.Remove(guard);
+                        unconsciousGuard = null;
+                        addedUnconscious = false;
                     }
                 }
             }
@@ -61,18 +77,22 @@ public class GuardManager : MonoBehaviour {
 
     void SeePlayer() {
         foreach (GameObject guard in guardList) {
-            if (guard.GetComponent<Guard>().CanSeePlayer()) {
-                playersLastPos = guard.transform;
-                if (!playerPosSet) {
+            if (!unconsciousList.Contains(guard)) {
+                if (guard.GetComponent<Guard>().CanSeePlayer()) {
                     playersLastPos = guard.transform;
+                    if (!playerPosSet) {
+                        playersLastPos = guard.transform;
+                        playerPosSet = true;
+                    }
+
+                    foreach (GameObject guard2 in guardList) {
+                        guard2.GetComponent<Guard>().GoToPosition(playersLastPos);
+                    }
+                }
+                else {
                     playerPosSet = true;
                 }
-                
-                foreach (GameObject guard2 in guardList) {
-                    guard2.GetComponent<Guard>().GoToPosition(playersLastPos);
-                }
-            } else {
-                playerPosSet = true;
+
             }
 
         }
@@ -80,15 +100,17 @@ public class GuardManager : MonoBehaviour {
 
     void HearPlayer() {
         foreach (GameObject guard in guardList) {
-            if (player.GetComponentInChildren<PlayerAttack>().Shooting()) {
-                playersLastPos = player.transform;
-                if (!playerPosSet) {
+            if (!unconsciousList.Contains(guard)) {
+                if (player.GetComponentInChildren<PlayerAttack>().Shooting()) {
+                    playersLastPos = player.transform;
+                    if (!playerPosSet) {
+                        playerPosSet = true;
+                    }
+                    guard.GetComponent<Guard>().GoToPosition(playersLastPos);
+                }
+                else {
                     playerPosSet = true;
                 }
-                Debug.Log("Heard that");
-                guard.GetComponent<Guard>().GoToPosition(playersLastPos);
-            } else {
-                playerPosSet = true;
             }
         }
     }

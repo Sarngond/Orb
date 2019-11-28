@@ -27,8 +27,12 @@ public class EnemyHealth : MonoBehaviour {
     void Die() {
         isDead = true;
         RemoveGuard();
+        GameObject parent = GetComponentInParent<Guard>().gameObject;
+        parent.SetActive(false);
+        parent.GetComponent<Guard>().enabled = false;
+        parent.GetComponent<GuardAttack>().enabled = false;
         //GameObject deadZombie;
-        Destroy(transform.parent.gameObject);
+        //Destroy(transform.parent.gameObject);
         //deadZombie = Instantiate(deadReeses, transform.position + offset, transform.rotation) as GameObject;
     }
 
