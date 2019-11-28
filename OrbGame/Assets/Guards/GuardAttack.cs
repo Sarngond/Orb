@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GuardAttack : MonoBehaviour
 {
-    public float damage = 10f;
+    public float damage = 25f;
     public float range = 100f;
 
     //public Camera fpsCam;
@@ -62,10 +62,10 @@ public class GuardAttack : MonoBehaviour
 
         RaycastHit hit;
         if (Physics.Raycast(transform.position, gunEnd.transform.forward, out hit, range)) {
-            //EnemyHealth enemy = hit.transform.GetComponent<EnemyHealth>();
-            //if (enemy != null) {
-            //    enemy.TakeDamage(damage);
-            //}
+            PlayerHealth player = hit.transform.GetComponent<PlayerHealth>();
+            if (player != null) {
+                player.TakeDamage(damage);
+            }
             float dist = Vector3.Distance(hit.point, gunEnd.transform.position);
 
             shootlight.enabled = true;

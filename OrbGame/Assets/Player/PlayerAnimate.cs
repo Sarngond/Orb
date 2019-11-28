@@ -17,6 +17,7 @@ public class PlayerAnimate : MonoBehaviour
 
     public Collider playerCollider;
     public Collider crouchCollider;
+    public Collider crouchCollider2;
 
     private bool isCrouched = false;
 
@@ -85,12 +86,14 @@ public class PlayerAnimate : MonoBehaviour
             isCrouched = true;
             anim.SetBool("isCrouching", true);
             crouchCollider.enabled = true;
+            crouchCollider2.enabled = true;
             playerCollider.enabled = false;
         }
         else {
             isCrouched = false;
             anim.SetBool("isCrouching", false);
             crouchCollider.enabled = false;
+            crouchCollider2.enabled = false;
             playerCollider.enabled = true;
         }
 
