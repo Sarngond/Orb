@@ -16,12 +16,11 @@ public class PlayerHealth : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-
+        healthSlider.value = health / 100f;
     }
 
     public void TakeDamage(float damageAmount) {
         health -= damageAmount;
-        healthSlider.value = health / 100f;
 
         if (health <= 0) {
             health = 0;
@@ -33,6 +32,14 @@ public class PlayerHealth : MonoBehaviour
     public void Die() {
         //SceneManager.LoadScene(8);
         Debug.Log("you're dead");
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        GetComponent<PlayerMovement>().LoadPlayer();
+    }
+
+    public bool PlayerDead() {
+        if(health <= 0) {
+            return true;
+        }
+        return false;
     }
 }
