@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private float originalSpeed;
     public float crouchSpeed = 5;
 
-    public GameObject orb;
+    //public GameObject orb;
 
     // Start is called before the first frame update
     void Start()
@@ -53,8 +53,8 @@ public class PlayerMovement : MonoBehaviour
         position.z = data.position[2];
 
         transform.position = position;
-        orb.GetComponent<NavMeshAgent>().enabled = false;
-        orb.transform.position = position;
-        orb.GetComponent<NavMeshAgent>().enabled = true;
+        //orb.GetComponent<NavMeshAgent>().enabled = false;
+        //orb.transform.position = position;
+        //orb.GetComponent<NavMeshAgent>().enabled = true;
     }
 }

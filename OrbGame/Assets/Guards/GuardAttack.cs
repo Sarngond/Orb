@@ -67,10 +67,11 @@ public class GuardAttack : MonoBehaviour
         if (guardManager.unconsciousGuard != null) {
             distToUnconscious = Vector3.Distance(guardManager.unconsciousGuard.transform.position, transform.position);
         }
-        if (isShooting && distToPlayer <= agent.stoppingDistance) {
+        if (isShooting && distToPlayer <= agent.stoppingDistance ||
+            !guardScript.isMoving) {
             anim.SetBool("isWalking", false);
         }
-        if (distToPlayer > agent.stoppingDistance && !isShooting) {
+        if (distToPlayer > agent.stoppingDistance && !isShooting && guardScript.isMoving) {
             anim.SetBool("isWalking", true);
         }
     }

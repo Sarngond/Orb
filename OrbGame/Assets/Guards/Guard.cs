@@ -39,6 +39,8 @@ public class Guard : MonoBehaviour
     private PlayerAnimate playerAnimate;
     private Animator anim;
 
+    public bool isMoving = false;
+
     void Start() {
 
         originalLightColor = spotlight.color;
@@ -79,6 +81,7 @@ public class Guard : MonoBehaviour
         // Choose the next destination point when the agent gets
         // close to the current one.
         if (onPatrol) {
+            StartCoroutine(CheckMoving());
             if (backToPoint) {
                 GotoNextPoint();
                 backToPoint = false;
@@ -118,6 +121,18 @@ public class Guard : MonoBehaviour
             }
         }
 
+    }
+
+    private IEnumerator CheckMoving() {
+        Vector3 startPos = transform.position;
+        yield return new WaitForSeconds(1f);
+        Vector3 finalPos = transform.position;
+        if (startPos == finalPos) {
+            isMoving = false;
+        } else {
+            isMoving = true;
+        }
+        
     }
 
     void GotoNextPoint() {
