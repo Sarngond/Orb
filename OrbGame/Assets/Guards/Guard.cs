@@ -37,6 +37,7 @@ public class Guard : MonoBehaviour
 
     private GameObject[] crouchables;
     private PlayerAnimate playerAnimate;
+    private Animator anim;
 
     void Start() {
 
@@ -49,6 +50,7 @@ public class Guard : MonoBehaviour
 
         crouchables = GameObject.FindGameObjectsWithTag("Crouchable");
         playerAnimate = player.GetComponentInChildren<PlayerAnimate>();
+        anim = GetComponentInChildren<Animator>();
 
         GotoNextPoint();
 
@@ -180,6 +182,7 @@ public class Guard : MonoBehaviour
                 float angleBetweenGuardAndUnconscious = Vector3.Angle(transform.forward, dirToUnconscious);
                 if (angleBetweenGuardAndUnconscious < viewAngle / 2f) {
                     if (!Physics.Linecast(transform.position, unconscious.transform.position, viewMask)) {
+                        float distToPlayer = Vector3.Distance(player.transform.position, transform.position);
                         unconsciousGuard = unconscious;
                         spottedUnconscious = true;
                     }

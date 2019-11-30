@@ -1,16 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyHealth : MonoBehaviour {
 
     public float health = 100f;
-    //public GameObject deadReeses;
     public Vector3 offset = new Vector3(0, 1, 0);
     private bool isDead = false;
+    private Animator anim;
+
+    public Collider capCollider;
+    public Collider knockoutCollider;
+    public Light spotLight;
 
     void Start() {
-        
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update() {
@@ -27,13 +32,14 @@ public class EnemyHealth : MonoBehaviour {
     void Die() {
         isDead = true;
         RemoveGuard();
-        GameObject parent = GetComponentInParent<Guard>().gameObject;
-        parent.SetActive(false);
-        parent.GetComponent<Guard>().enabled = false;
-        parent.GetComponent<GuardAttack>().enabled = false;
-        //GameObject deadZombie;
-        //Destroy(transform.parent.gameObject);
-        //deadZombie = Instantiate(deadReeses, transform.position + offset, transform.rotation) as GameObject;
+        GetComponent<Guard>().enabled = false;
+        GetComponent<GuardAttack>().enabled = false;
+        GetComponent<NavMeshAgent>().enabled = false;
+        spotLight.enabled = false;
+        anim.SetTrigger("Dead");
+        capCollider.enabled = false;
+        knockoutCollider.enabled = false;
+        Destroy(gameObject, 3f);
     }
 
     public bool Dead() {

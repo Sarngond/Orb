@@ -20,7 +20,7 @@ public class GuardUnconscious : MonoBehaviour
 
     void Start()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         guardScript = GetComponent<Guard>();
         guardAttackScript = GetComponent<GuardAttack>();
         agent = GetComponent<NavMeshAgent>();

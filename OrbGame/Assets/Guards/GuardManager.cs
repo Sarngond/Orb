@@ -14,7 +14,7 @@ public class GuardManager : MonoBehaviour {
     private Transform playersLastPos;
     private bool playerPosSet = false;
 
-    private bool addedUnconscious = false;
+    public bool addedUnconscious = false;
 
     // Start is called before the first frame update
     void Start()
