@@ -81,6 +81,12 @@ public class PlayerAttack : MonoBehaviour
             if (enemy != null) {
                 enemy.TakeDamage(damage);
             }
+            PowerGenerator generator;
+            generator = hit.transform.GetComponent<PowerGenerator>();
+            if (generator != null) {
+                generator.TakeDamage(damage);
+            }
+
             float dist = Vector3.Distance(gunEnd.transform.position, hit.point) * 2;
 
             shootlight.enabled = true;

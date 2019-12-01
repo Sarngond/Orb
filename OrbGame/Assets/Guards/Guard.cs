@@ -40,6 +40,7 @@ public class Guard : MonoBehaviour
     private Animator anim;
 
     public bool isMoving = false;
+    public bool attackingPlayer = false;
 
     void Start() {
 
@@ -81,6 +82,7 @@ public class Guard : MonoBehaviour
         // Choose the next destination point when the agent gets
         // close to the current one.
         if (onPatrol) {
+            attackingPlayer = false;
             StartCoroutine(CheckMoving());
             if (backToPoint) {
                 GotoNextPoint();
@@ -95,9 +97,9 @@ public class Guard : MonoBehaviour
             onPatrol = false;
             spotlight.color = originalLightColor;
             returnTimer = 5;
+            attackingPlayer = true;
         }
         if (!CanSeePlayer()) {
-
             if (!onPatrol) {
                 returnTimer -= Time.deltaTime;
                 if (returnTimer <= 0) {
