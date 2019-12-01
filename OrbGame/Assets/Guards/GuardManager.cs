@@ -78,7 +78,8 @@ public class GuardManager : MonoBehaviour {
     void SeePlayer() {
         foreach (GameObject guard in guardList) {
             if (!unconsciousList.Contains(guard)) {
-                if (guard.GetComponent<Guard>().CanSeePlayer()) {
+                //if (guard.GetComponent<Guard>().CanSeePlayer()) {
+                if (guard.GetComponent<GuardAttack>().isShooting) {
                     playersLastPos = guard.transform;
                     if (!playerPosSet) {
                         playersLastPos = guard.transform;

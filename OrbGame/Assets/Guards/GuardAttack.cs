@@ -21,7 +21,7 @@ public class GuardAttack : MonoBehaviour
     private Guard guardScript;
     public float timeInBetweenFire = 0;
     private Animator anim;
-    private bool isShooting = false;
+    public bool isShooting = false;
     private GuardManager guardManager;
 
     //public AudioClip shootClip;

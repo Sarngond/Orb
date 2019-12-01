@@ -140,6 +140,10 @@ public class Guard : MonoBehaviour
         if (points.Length == 0)
             return;
         // Set the agent to go to the currently selected destination.
+        if(points.Length == 1) {
+            transform.rotation = points[0].transform.rotation;
+        }
+
         navAgent.destination = points[destPoint].position;
         navAgent.speed = patrolSpeed;
         navAgent.stoppingDistance = 0f;

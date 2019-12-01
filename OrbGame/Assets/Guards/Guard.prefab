@@ -279,6 +279,7 @@ MonoBehaviour:
   - {fileID: 0}
   spottedUnconscious: 0
   canHearPlayer: 0
+  isMoving: 0
 --- !u!114 &536129100605739694
 MonoBehaviour:
   m_ObjectHideFlags: 0
