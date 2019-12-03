@@ -80,9 +80,9 @@ public class GuardManager : MonoBehaviour {
             if (!unconsciousList.Contains(guard)) {
                 //if (guard.GetComponent<Guard>().CanSeePlayer()) {
                 if (guard.GetComponent<GuardAttack>().isShooting) {
-                    playersLastPos = guard.transform;
+                    //playersLastPos = guard.transform;
                     if (!playerPosSet) {
-                        playersLastPos = guard.transform;
+                        playersLastPos = player.transform;
                         playerPosSet = true;
                     }
 
@@ -91,7 +91,8 @@ public class GuardManager : MonoBehaviour {
                     }
                 }
                 else {
-                    playerPosSet = true;
+                    playerPosSet = false;
+                    playersLastPos = null;
                 }
 
             }

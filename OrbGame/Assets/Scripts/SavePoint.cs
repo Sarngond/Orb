@@ -5,6 +5,7 @@ using UnityEngine;
 public class SavePoint : MonoBehaviour
 {
     private GameObject player;
+    public GameObject[] guards;
     public ParticleSystem particles;
 
     // Start is called before the first frame update
@@ -24,6 +25,9 @@ public class SavePoint : MonoBehaviour
             Debug.Log("Save");
             particles.Play();
             player.GetComponent<PlayerMovement>().SavePlayer();
+            foreach (GameObject guard in guards) {
+                guard.GetComponent<Guard>().SaveGuard();
+            }
         }
     }
 }

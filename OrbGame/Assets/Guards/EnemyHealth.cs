@@ -7,19 +7,28 @@ public class EnemyHealth : MonoBehaviour {
 
     public float health = 100f;
     public Vector3 offset = new Vector3(0, 1, 0);
-    private bool isDead = false;
+    public bool isDead = false;
     private Animator anim;
 
     public Collider capCollider;
     public Collider knockoutCollider;
     public Light spotLight;
 
+    public string deadString = "false";
+
     void Start() {
         anim = GetComponentInChildren<Animator>();
     }
 
     void Update() {
-        
+        if(deadString == "true") {
+            isDead = true;
+            KillGuard();
+        }
+
+        if (deadString == "false") {
+            isDead = false;
+        }
     }
 
     public void TakeDamage(float amount) {
@@ -30,7 +39,7 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     void Die() {
-        isDead = true;
+        deadString = "true";
         RemoveGuard();
         GetComponent<Guard>().enabled = false;
         GetComponent<GuardAttack>().enabled = false;
@@ -39,7 +48,7 @@ public class EnemyHealth : MonoBehaviour {
         anim.SetTrigger("Dead");
         capCollider.enabled = false;
         knockoutCollider.enabled = false;
-        Destroy(gameObject, 3f);
+        Invoke("KillGuard", 3f);
     }
 
     public bool Dead() {
@@ -52,5 +61,17 @@ public class EnemyHealth : MonoBehaviour {
     public void RemoveGuard() {
         GuardManager manager = FindObjectOfType<GuardManager>();
         manager.RemoveGuardFromList(gameObject);
+    }
+
+    public void KillGuard() {
+        RemoveGuard();
+        GetComponent<Guard>().enabled = false;
+        GetComponent<GuardAttack>().enabled = false;
+        GetComponent<NavMeshAgent>().enabled = false;
+        spotLight.enabled = false;
+        anim.SetTrigger("Dead");
+        capCollider.enabled = false;
+        knockoutCollider.enabled = false;
+        gameObject.SetActive(false);
     }
 }

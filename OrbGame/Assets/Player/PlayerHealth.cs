@@ -2,16 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class PlayerHealth : MonoBehaviour
-{
+public class PlayerHealth : MonoBehaviour {
     public float health = 100f;
     public float maxHealth = 110f;
     public Slider healthSlider;
 
+    private GameObject[] guards;
+
     // Use this for initialization
     void Start() {
         healthSlider.value = health / 100;
+        guards = GameObject.FindGameObjectsWithTag("Guard");
+
+        GetComponent<PlayerMovement>().LoadPlayer();
+        foreach (GameObject guard in guards) {
+            guard.GetComponent<Guard>().LoadGuard();
+        }
     }
 
     // Update is called once per frame
@@ -32,8 +40,9 @@ public class PlayerHealth : MonoBehaviour
     public void Die() {
         //SceneManager.LoadScene(8);
         Debug.Log("you're dead");
+        SceneManager.LoadScene(4);
         //gameObject.SetActive(false);
-        GetComponent<PlayerMovement>().LoadPlayer();
+
     }
 
     public bool PlayerDead() {

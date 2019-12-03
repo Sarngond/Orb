@@ -276,8 +276,26 @@ public class Guard : MonoBehaviour
             navAgent.stoppingDistance = 0;
         }
         if (canHearPlayer) {
-            navAgent.SetDestination(transform.position);
+            navAgent.SetDestination(player.transform.position);
         }
     }
 
+    public void SaveGuard() {
+        SaveSystem.SaveGuard(gameObject);
+    }
+
+    public void LoadGuard() {
+        GuardData data = SaveSystem.LoadGuard(gameObject);
+
+        //GetComponent<EnemyHealth>().health = data.health;
+
+        GetComponent<EnemyHealth>().deadString = data.dead;
+
+        Vector3 position;
+        position.x = data.position[0];
+        position.y = data.position[1];
+        position.z = data.position[2];
+
+        transform.position = position;
+    }
 }
