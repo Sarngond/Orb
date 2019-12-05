@@ -45,14 +45,18 @@ public class PlayerMovement : MonoBehaviour
     public void LoadPlayer() {
         PlayerData data = SaveSystem.LoadPlayer();
 
-        GetComponent<PlayerHealth>().health = data.health;
+        //GetComponent<PlayerHealth>().health = data.health;
+        GetComponent<PlayerItems>().hasCardString = data.cardStatus;
+        Debug.Log(data.cardStatus);
 
-        Vector3 position;
-        position.x = data.position[0];
-        position.y = data.position[1];
-        position.z = data.position[2];
+        if (data.position != null) {
+            Vector3 position;
+            position.x = data.position[0];
+            position.y = data.position[1];
+            position.z = data.position[2];
 
-        transform.position = position;
+            transform.position = position;
+        }
         //orb.GetComponent<NavMeshAgent>().enabled = false;
         //orb.transform.position = position;
         //orb.GetComponent<NavMeshAgent>().enabled = true;

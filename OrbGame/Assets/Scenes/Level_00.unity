@@ -157,6 +157,69 @@ Transform:
   m_Father: {fileID: 1361236302}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5699572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5699575}
+  - component: {fileID: 5699574}
+  - component: {fileID: 5699573}
+  m_Layer: 0
+  m_Name: Save Trigger (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &5699573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5699572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab74c10163bde848a2773d64882a0c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generator: {fileID: 342205863}
+  generatorObject: {fileID: 342205863}
+  button: {fileID: 0}
+  keyCardObject: {fileID: 0}
+  guards: []
+  buttons: []
+--- !u!65 &5699574
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5699572}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 38.110474, y: 2.285211, z: 58.934937}
+  m_Center: {x: 18.450104, y: 1.7499998, z: 2.5239553}
+--- !u!4 &5699575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5699572}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12, y: 0, z: -46}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6398328
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -507,7 +570,7 @@ PrefabInstance:
     - target: {fileID: 7414782529388395729, guid: ca4590318f0a65f418e617b9c501d28b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7414782529388395729, guid: ca4590318f0a65f418e617b9c501d28b,
         type: 3}
@@ -1155,7 +1218,7 @@ PrefabInstance:
     - target: {fileID: 7627107593812710834, guid: 808e12db515f8db40ad6afab247b0d8a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7627107593812710834, guid: 808e12db515f8db40ad6afab247b0d8a,
         type: 3}
@@ -1928,7 +1991,6 @@ Transform:
   - {fileID: 904661377}
   - {fileID: 210873135}
   - {fileID: 2049727179}
-  - {fileID: 534042365}
   - {fileID: 1304692655}
   - {fileID: 1782979599}
   - {fileID: 1839589482}
@@ -4881,12 +4943,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 740fbdface16ada448030aa24628f0af, type: 3}
---- !u!4 &164456866 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-    type: 3}
-  m_PrefabInstance: {fileID: 2041975790}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &167355321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6529,6 +6585,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SavePoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572767221993371829, guid: be0164fb502a7984996f6a8f48ade937,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8572767221993371825, guid: be0164fb502a7984996f6a8f48ade937,
         type: 3}
@@ -12649,7 +12710,7 @@ PrefabInstance:
     - target: {fileID: 7414782529388395729, guid: ca4590318f0a65f418e617b9c501d28b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7414782529388395729, guid: ca4590318f0a65f418e617b9c501d28b,
         type: 3}
@@ -13284,7 +13345,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 470671860}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19, y: 2, z: -63}
+  m_LocalPosition: {x: -19, y: 2, z: -51}
   m_LocalScale: {x: 13, y: 1, z: 1}
   m_Children:
   - {fileID: 1621358299}
@@ -13678,7 +13739,17 @@ PrefabInstance:
     - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
       propertyPath: m_Name
-      value: Door Button (2)
+      value: Door Button (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
@@ -13718,7 +13789,7 @@ PrefabInstance:
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
@@ -14498,6 +14569,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1993007787}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &512233431 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1611829654}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &512609507 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6160461536965102105, guid: bda9a8538243fe74ea26d63849801210,
@@ -15041,12 +15118,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6160461536965102105, guid: bda9a8538243fe74ea26d63849801210,
     type: 3}
   m_PrefabInstance: {fileID: 532575366}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &534042365 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1522214496}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &541637929
 PrefabInstance:
@@ -16808,7 +16879,17 @@ PrefabInstance:
     - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
       propertyPath: m_Name
-      value: Door Button
+      value: Door Button (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
@@ -16848,7 +16929,7 @@ PrefabInstance:
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
@@ -21547,7 +21628,7 @@ PrefabInstance:
     - target: {fileID: 2908060899898686702, guid: 962db2bf00ac379419bea9b78b1f9bae,
         type: 3}
       propertyPath: canOpen
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 962db2bf00ac379419bea9b78b1f9bae, type: 3}
@@ -21821,7 +21902,7 @@ PrefabInstance:
     - target: {fileID: 2908060899898686702, guid: 962db2bf00ac379419bea9b78b1f9bae,
         type: 3}
       propertyPath: canOpen
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 962db2bf00ac379419bea9b78b1f9bae, type: 3}
@@ -23238,7 +23319,17 @@ PrefabInstance:
     - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
       propertyPath: m_Name
-      value: Door Button (3)
+      value: Door Button (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
@@ -23278,7 +23369,7 @@ PrefabInstance:
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
@@ -26488,6 +26579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 900651112}
   - component: {fileID: 900651111}
+  - component: {fileID: 900651113}
   m_Layer: 0
   m_Name: Save Trigger
   m_TagString: Untagged
@@ -26506,8 +26598,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 4.5000005, z: 2.1}
-  m_Center: {x: 0, y: 1.7499998, z: 0.049999952}
+  m_Size: {x: 25.5, y: 4.5000005, z: 26}
+  m_Center: {x: 12.25, y: 1.7499998, z: 4}
 --- !u!4 &900651112
 Transform:
   m_ObjectHideFlags: 0
@@ -26516,12 +26608,30 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900651110}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13, y: 0, z: -4}
+  m_LocalPosition: {x: -12, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &900651113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900651110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab74c10163bde848a2773d64882a0c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generator: {fileID: 342205863}
+  generatorObject: {fileID: 342205863}
+  button: {fileID: 1860606385}
+  keyCardObject: {fileID: 0}
+  guards: []
+  buttons: []
 --- !u!1001 &901680295
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27661,7 +27771,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 941287733}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -30688,6 +30798,69 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1037288112}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1037782372
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1037782375}
+  - component: {fileID: 1037782374}
+  - component: {fileID: 1037782373}
+  m_Layer: 0
+  m_Name: Save Trigger (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1037782373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037782372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab74c10163bde848a2773d64882a0c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generator: {fileID: 342205863}
+  generatorObject: {fileID: 342205863}
+  button: {fileID: 0}
+  keyCardObject: {fileID: 1207801993}
+  guards: []
+  buttons: []
+--- !u!65 &1037782374
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037782372}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 37.000004, y: 4.5000005, z: 19.630531}
+  m_Center: {x: -18.1, y: 1.7499998, z: -4.246296}
+--- !u!4 &1037782375
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037782372}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -26, y: 0, z: -22}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1041537847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33879,7 +34052,17 @@ PrefabInstance:
     - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
       propertyPath: m_Name
-      value: Door Button (1)
+      value: Door Button (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
@@ -35040,7 +35223,7 @@ GameObject:
   - component: {fileID: 1207801998}
   m_Layer: 0
   m_Name: Key Card
-  m_TagString: Untagged
+  m_TagString: KeyCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35131,6 +35314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d488d857440e84ea3f06293143c97a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardObtained: 0
+  obtainedString: false
 --- !u!1 &1208203491
 GameObject:
   m_ObjectHideFlags: 0
@@ -35172,7 +35357,6 @@ Transform:
   - {fileID: 970450676}
   - {fileID: 2077044946}
   - {fileID: 1377432189}
-  - {fileID: 164456866}
   - {fileID: 1908766007}
   - {fileID: 1567704883}
   - {fileID: 1846866862}
@@ -43847,90 +44031,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1521759905}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1522214496
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 46794738}
-    m_Modifications:
-    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_Name
-      value: Door Button (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -74.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.25000012
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.25000012
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794802, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: door
-      value: 
-      objectReference: {fileID: 210873131}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 110708ace1fa59445902421d8214c85b, type: 3}
 --- !u!1001 &1529590482
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45786,6 +45886,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Win
+  playerStartPos: {x: -31.5, y: 0.0000001980807, z: -9.6}
+  guards: []
+  buttons: []
+  openButtons:
+  - {fileID: 512233431}
+  generator: {fileID: 342205863}
 --- !u!1001 &1587767481
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46497,6 +46603,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door Button (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -46557,6 +46673,16 @@ PrefabInstance:
       propertyPath: door
       value: 
       objectReference: {fileID: 747245508}
+    - target: {fileID: 6169824735366794802, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: isPushed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794802, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: isPushedString
+      value: true
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 110708ace1fa59445902421d8214c85b, type: 3}
 --- !u!4 &1611829655 stripped
@@ -53553,7 +53679,17 @@ PrefabInstance:
     - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
       propertyPath: m_Name
-      value: Door Button (1)
+      value: Door Button (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
@@ -53593,7 +53729,7 @@ PrefabInstance:
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
@@ -54588,7 +54724,17 @@ PrefabInstance:
     - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
       propertyPath: m_Name
-      value: Door Button
+      value: Door Button (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
@@ -54650,6 +54796,11 @@ PrefabInstance:
       propertyPath: door
       value: 
       objectReference: {fileID: 994775661}
+    - target: {fileID: 6169824735366794802, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: isPushed
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 110708ace1fa59445902421d8214c85b, type: 3}
 --- !u!1001 &1723622167
@@ -54984,7 +55135,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733146969}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 1.54, y: -2, z: -0.79}
+  m_LocalPosition: {x: 1.562, y: -2, z: -12.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 470671864}
@@ -63056,6 +63207,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859280520}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1860606385 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1868513265}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1867369908
 GameObject:
   m_ObjectHideFlags: 0
@@ -63251,6 +63408,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door Button
       objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Button
+      objectReference: {fileID: 0}
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -63311,6 +63473,11 @@ PrefabInstance:
       propertyPath: door
       value: 
       objectReference: {fileID: 1265390664}
+    - target: {fileID: 6169824735366794802, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: isPushedString
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 110708ace1fa59445902421d8214c85b, type: 3}
 --- !u!1001 &1873277705
@@ -64743,7 +64910,17 @@ PrefabInstance:
     - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
       propertyPath: m_Name
-      value: Door Button (3)
+      value: Door Button (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
@@ -64783,7 +64960,7 @@ PrefabInstance:
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
         type: 3}
@@ -66594,7 +66771,7 @@ PrefabInstance:
     - target: {fileID: 2908060899898686707, guid: 962db2bf00ac379419bea9b78b1f9bae,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2908060899898686707, guid: 962db2bf00ac379419bea9b78b1f9bae,
         type: 3}
@@ -68726,85 +68903,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2041878669}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &2041975790
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1208203492}
-    m_Modifications:
-    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_Name
-      value: Door Button (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794829, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 6.64
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 12.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794800, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169824735366794802, guid: 110708ace1fa59445902421d8214c85b,
-        type: 3}
-      propertyPath: door
-      value: 
-      objectReference: {fileID: 1685248480}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 110708ace1fa59445902421d8214c85b, type: 3}
 --- !u!4 &2046788989 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 536129100605739680, guid: 4932daa763c9ab14794de4d88fe4c36d,

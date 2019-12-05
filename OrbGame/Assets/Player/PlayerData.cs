@@ -7,10 +7,12 @@ public class PlayerData
 {
 
     public float health;
+    public string cardStatus;
     public float[] position;
 
     public PlayerData(GameObject player) {
-        health = player.GetComponent<PlayerHealth>().health;
+        //health = player.GetComponent<PlayerHealth>().health;
+        cardStatus = player.GetComponent<PlayerItems>().hasCardString; 
 
         position = new float[3];
         position[0] = player.transform.position.x;

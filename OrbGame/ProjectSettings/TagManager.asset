@@ -9,6 +9,8 @@ TagManager:
   - Unconscious Guard
   - Crouchable
   - GuardManager
+  - Button
+  - KeyCard
   layers:
   - Default
   - TransparentFX

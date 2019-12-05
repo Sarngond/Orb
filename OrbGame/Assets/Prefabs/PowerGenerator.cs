@@ -11,18 +11,28 @@ public class PowerGenerator : MonoBehaviour
     void Start()
     {
         sheildFeild = FindObjectOfType<SheildFeild>().gameObject;
+
+        LoadGenerator();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (health <= 0) {
+            sheildFeild.GetComponent<SheildFeild>().PowerDown();
+        }
     }
 
     public void TakeDamage(float amount) {
         health -= amount;
-        if (health <= 0) {
-            sheildFeild.GetComponent<SheildFeild>().PowerDown();
-        }
+    }
+
+    public void SaveGenerator() {
+        SaveSystem.SaveGenerator(gameObject);
+    }
+
+    public void LoadGenerator() {
+        GeneratorData data = SaveSystem.LoadGenerator(gameObject);
+        health = data.health;
     }
 }
