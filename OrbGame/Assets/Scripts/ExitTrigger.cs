@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ExitTrigger : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class ExitTrigger : MonoBehaviour
     public GameObject[] openButtons;
     private GameObject keyCard;
     public GameObject generator;
+    private GameObject sheildFeild;
 
 
     private LevelManager levelmanager;
@@ -23,23 +25,39 @@ public class ExitTrigger : MonoBehaviour
         keyCard = GameObject.FindGameObjectWithTag("KeyCard");
         buttons = GameObject.FindGameObjectsWithTag("Button");
         guards = GameObject.FindGameObjectsWithTag("Guard");
+        sheildFeild = FindObjectOfType<SheildFeild>().gameObject;
     }
 
     void OnTriggerEnter(Collider collider) {
         if (collider = player.GetComponent<Collider>()) {
-            levelmanager.LoadLevel(sceneName);
 
             player.transform.position = playerStartPos;
+            player.GetComponent<PlayerItems>().hasCardString = "false";
             generator.GetComponent<PowerGenerator>().health = 10f;
             keyCard.SetActive(true);
-            keyCard.GetComponent<KeyCard>().cardObtained = false;
+            keyCard.GetComponent<KeyCard>().obtainedString = "false";
+            sheildFeild.GetComponent<SheildFeild>().PowerUp();
             foreach (GameObject button in buttons) {
-                button.GetComponent<DoorButton>().isPushed = false;
+                button.GetComponent<DoorButton>().isPushedString = "false";
+                button.GetComponent<Animator>().SetBool("isPushed", false);
             }
             foreach (GameObject button in openButtons) {
-                button.GetComponent<DoorButton>().isPushed = true;
+                button.GetComponent<DoorButton>().isPushedString = "true";
+                button.GetComponent<Animator>().SetBool("isPushed", true);
             }
             foreach (GameObject guard in guards) {
+                guard.GetComponent<EnemyHealth>().health = 100f;
+                guard.GetComponent<EnemyHealth>().deadString = "false";
+                guard.GetComponent<Guard>().enabled = true;
+                guard.GetComponent<GuardAttack>().enabled = true;
+                guard.GetComponent<NavMeshAgent>().enabled = true;
+                guard.GetComponent<CapsuleCollider>().enabled = true;
+                guard.GetComponent<BoxCollider>().enabled = true;
+                guard.GetComponent<Guard>().backToPoint = true;
+                Light spotLight = guard.GetComponentInChildren<Light>();
+                if (spotLight.type == LightType.Spot) {
+                    spotLight.enabled = true;
+                }
                 guard.SetActive(true);
             }
 
@@ -53,6 +71,12 @@ public class ExitTrigger : MonoBehaviour
             foreach (GameObject button in buttons) {
                 button.GetComponent<DoorButton>().SaveButton();
             }
+            foreach (GameObject button in openButtons) {
+                button.GetComponent<DoorButton>().SaveButton();
+            }
+
+
+            levelmanager.LoadLevel(sceneName);
         }
     }
 }

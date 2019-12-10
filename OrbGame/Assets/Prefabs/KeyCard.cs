@@ -25,6 +25,14 @@ public class KeyCard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (obtainedString == "true") {
+            cardObtained = true;
+        }
+        if (obtainedString == "false") {
+            cardObtained = false;
+        }
+
+
         if (cardObtained) {
             HideCard();
         }

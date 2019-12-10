@@ -11,7 +11,7 @@ public class Guard : MonoBehaviour
     public float turnSpeed = 90;
     public bool onPatrol = true;
     public float followStopDistance = 5;
-    private bool backToPoint = false;
+    public bool backToPoint = false;
 
     public Light spotlight;
     private Color originalLightColor;

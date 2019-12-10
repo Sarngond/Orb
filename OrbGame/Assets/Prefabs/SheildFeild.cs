@@ -19,4 +19,8 @@ public class SheildFeild : MonoBehaviour
     public void PowerDown() {
         gameObject.SetActive(false);
     }
+
+    public void PowerUp() {
+        gameObject.SetActive(true);
+    }
 }
